@@ -8,16 +8,36 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import Vuex from 'Vuex';
 Vue.use(Vuex);
+import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css'
+Vue.use(MuseUI);
+
+var index = require("./component/index.vue");
+var detail = require("./component/detail.vue");
+var pictures = require('./component/kind/pictures.vue');
+var collect = require('./component/kind/collect.vue');
+var me = require('./component/kind/me.vue');
+
 var router = new VueRouter({
     routes:[{
         path:'/index',
-        component:index
+        component:index,
+        children:[{
+            path:'pictures',
+            component:pictures
+        },{
+            path:'collect',
+            component:collect
+        },{
+            path:'me',
+            component:me
+        }]
     },{
         path:'/detail',
         component:detail
     },{
         path:'/',
-        redirect:'/index',
+        redirect:'/index/pictures',
         component:index
     }]
 });
@@ -33,12 +53,12 @@ var store = new Vuex.Store({
     }
 })
 new Vue({
-    ele:'#beautyApp',
+    el:'#beautyApp',
+    template:`
+        <router-view></router-view>
+    `,
     data:{},
     router,
-    store,
-    components:{
-        index,
-        detail
-    }
+    store
+
 })

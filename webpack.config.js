@@ -1,20 +1,19 @@
 /**
  * Created by westbrook on 2017/5/10.
  */
-var webpack = require('webpack');
-export default{
+module.exports = {
     devtool:"source-map",
-    entry: __dirname + './main.js',
+    entry: __dirname + '/main.js',
     output:{
         path:__dirname+"/public",
-        filename:'bundle.js'
+        filename:"bundle.js"
     },
     resolve:{
         alias:{
-            vue:'vue/dist/vue.js',
+            vue:'vue/dist/vue.js'
         }
     },
-    moudle:{
+    module:{
         loaders: [{
             //cnpm install babel-loader
             //cnpm install babel-core babel-preset-es2015 //安装babel  实现 ES6 到 ES5
@@ -53,6 +52,7 @@ export default{
     },
     devServer:{
         contentBase:"./public",
+        port:2425,
         inline:true
     },
     plugins:[
