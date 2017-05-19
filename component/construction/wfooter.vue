@@ -14,8 +14,8 @@
     export default {
         data () {
             return {
-                bottomNav: 'movies',
-                bottomNavColor: 'movies'
+                bottomNav: 'pictures',
+                bottomNavColor: 'pictures'
             }
         },
         methods: {
@@ -24,7 +24,7 @@
                 console.log(val);
                 switch(val){
                     case 'pictures':
-                        window.location.href = '#/index/pictures';
+                        window.location.href = '#/index/pictures/daxiongmei';
                         break;
                     case "collect":
                         window.location.href = '#/index/collect';
@@ -40,13 +40,13 @@
             }
         },
         mounted(){
-
+            $('.footWrap').height(parseInt(window.innerHeight*0.1))
         }
     }
 </script>
 <style scoped>
     .footWrap{
-        position: absolute;
+        position: fixed;
         bottom:0;
         width: 100%;
     }

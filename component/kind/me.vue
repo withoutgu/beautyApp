@@ -118,6 +118,7 @@
         justify-content: space-around;
         position: relative;
         top:20px;
+        height:100%;
     }
 
     .gridlist-demo{
