@@ -17,6 +17,8 @@ var detail = require("./component/detail.vue");
 var pictures = require('./component/kind/pictures.vue');
 var collect = require('./component/kind/collect.vue');
 var me = require('./component/kind/me.vue');
+var login = require('./component/kind/login.vue');
+var register = require('./component/kind/register.vue');
 
 var router = new VueRouter({
     routes:[{
@@ -30,7 +32,13 @@ var router = new VueRouter({
             component:collect
         },{
             path:'me',
-            component:me
+            component:me,
+        },{
+            path:'login',
+            component:login,
+        },{
+            path:'register',
+            component:register,
         }]
     },{
         path:'/detail',

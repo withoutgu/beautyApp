@@ -6,7 +6,7 @@
     export default{
         data:function(){
             return{
-                name:'without'
+                name:'花瓣美女'
             }
         },
         mounted:function(){
@@ -25,7 +25,7 @@
         text-align: center;
         background: #7e57c2;
         color: #fff;
-        font-size: 14px;
+        font-size: 1rem;
         position: fixed;
         top:0;
     }
