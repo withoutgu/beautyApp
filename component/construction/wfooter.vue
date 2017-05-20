@@ -24,7 +24,7 @@
                 console.log(val);
                 switch(val){
                     case 'pictures':
-                        window.location.href = '#/index/pictures/daxiongmei';
+                        window.location.href = '#/index/pictures/list';
                         break;
                     case "collect":
                         window.location.href = '#/index/collect';

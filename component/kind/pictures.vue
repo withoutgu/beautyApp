@@ -6,25 +6,25 @@
             </div>
             <mu-list @itemClick="docked ? '' : toggle()" style="height: 100%;">
                 <mu-list class="sideBarListWrap">
-                    <mu-list-item title="大胸妹" href="#/index/pictures/daxiongmei" @click="toggle (flag)">
+                    <mu-list-item title="大胸妹" href="#/index/pictures/list" @click="setType(34)">
                         <mu-icon slot="left" value="favorite" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="小清新" href="#/index/pictures/xiaoqingxin" @click="toggle (flag)">
+                    <mu-list-item title="小清新" href="#/index/pictures/list" @click="setType(35)">
                         <mu-icon slot="left" value="loyalty" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="文艺范" href="#/index/pictures/wenyifan" @click="toggle (flag)">
+                    <mu-list-item title="文艺范" href="#/index/pictures/list" @click="setType(36)">
                         <mu-icon slot="left" value="thumb_up" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="性感妹" href="#/index/pictures/xingganmei" @click="toggle (flag)">
+                    <mu-list-item title="性感妹" href="#/index/pictures/list" @click="setType(37)">
                         <mu-icon slot="left" value="visibility" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="大长腿" href="#/index/pictures/dachangtui" @click="toggle (flag)">
+                    <mu-list-item title="大长腿" href="#/index/pictures/list" @click="setType(38)">
                         <mu-icon slot="left" value="touch_app" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="黑丝袜" href="#/index/pictures/heisiwa" @click="toggle (flag)">
+                    <mu-list-item title="黑丝袜" href="#/index/pictures/list" @click="setType(39)">
                         <mu-icon slot="left" value="hd" color="pink"/>
                     </mu-list-item>
-                    <mu-list-item title="小翘臀" href="#/index/pictures/xiaoqiaotun" @click="toggle (flag)">
+                    <mu-list-item title="小翘臀" href="#/index/pictures/list" @click="setType(40)">
                         <mu-icon slot="left" value="bubble_chart" color="pink"/>
                     </mu-list-item>
                 </mu-list>
@@ -40,12 +40,13 @@
 
             <router-view></router-view>
 
-
             <div class="lodingWrap">
                 <mu-circular-progress :size="40" class="loading1" color="yellow"/>
                 <mu-circular-progress :size="60" class="loading2" color="orange"/>
                 <mu-circular-progress :size="90" class="loading3" />
             </div>
+            <mu-raised-button label="加载更多" fullWidth @click="loadMore()"/>
+
         </div>
         <div v-if="activeTab === 'tab2'">
             <h2>Tab Two</h2>
@@ -60,10 +61,12 @@
     export default {
         data () {
             return {
-
+                page:1,
+                picArr:[],
                 activeTab: 'tab1',
                 open: false,
-                docked: true
+                docked: true,
+                type:'34'
             }
         },
         mounted () {
@@ -73,9 +76,10 @@
             console.log(footHeight);
             var h = window.innerHeight-headHight-footHeight;
             console.log(h);
-            $('.picWrap').css({"height":h,"top":headHight,"margin-left":-($('.picWrap').width()/2),"padding-top":$('.picTab').innerHeight()});
-            $('.picList li').css({"margin-left":-$('.picList li').innerWidth()/2});
+            $('.picWrap').css({"height":h,"top":headHight,"margin":"0 auto","padding-top":$('.picTab').innerHeight()});
+            $('.picList li').css({"margin":"0 auto"});
             $('.loading1').css({"margin-left":-$('.loading1').innerWidth()/2,"margin-top":-$('.loading1').innerHeight()/2});
+//            $('.loading1').css({"margin-left":"auto","margin-top":-$('.loading1').innerHeight()/2});
             $('.loading2').css({"margin-left":-$('.loading2').innerWidth()/2,"margin-top":-$('.loading2').innerHeight()/2});
             $('.loading3').css({"margin-left":-$('.loading3').innerWidth()/2,"margin-top":-$('.loading3').innerHeight()/2});
             $('.picTab').css({top:headHight});
@@ -84,10 +88,41 @@
             $('.sideBarListWrap').height($('.sideBarList').innerHeight()-$('.sideBarHead').innerHeight());
             $('.sideBarListWrap').css({"padding-top":$('.sideBarHead').innerHeight()})
 
-
+            this.loadMore();
         },
         methods: {
-
+            load (type) {
+                var self = this;
+                console.log(type);
+                $('.lodingWrap').show();
+                $.ajax({
+                    url: 'http://route.showapi.com/819-1',
+                    type: 'GET',
+                    data: {
+                        showapi_appid: 36276,
+                        showapi_sign: 'a5c104b7ad0447b180f1a89a6eb2c60c',
+                        type: type,
+                        num: 5,
+                        page: self.page
+                    },
+                    success: function (data) {
+                        var imgs = data.showapi_res_body;
+                        for (var key in imgs) {
+                            if (key != 'ret_code') {
+//                                console.log(imgs[key]);
+                                self.picArr.push(imgs[key]);
+                            }
+                        }
+//                        console.log(self.picArr);
+                        self.page++;
+                        $('.lodingWrap').hide();
+                        self.$store.commit("setArr",self.picArr);
+                    }
+                })
+            },
+            loadMore(){
+                this.load (this.type);
+            },
             handleTabChange (val) {
                 this.activeTab = val
             },
@@ -98,6 +133,14 @@
             toggle (flag) {
                 this.open = !this.open
                 this.docked = !flag
+            },
+            setType(n){
+                this.type = n;
+                this.toggle();
+                this.page = 1;
+                this.picArr = [];
+                $('.sideBarListWrap').scrollTop(0);
+                this.load(this.type);
             }
         }
     }
@@ -118,7 +161,7 @@
     }
     .picList li{
         border-radius: 5px;
-        box-shadow: 5px 5px 5px #bbb;
+        box-shadow: -5px 5px 5px #bbb;
         width: 95%;
         position: relative;
         /*left: 50%;*/

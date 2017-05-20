@@ -9,7 +9,8 @@ Vue.use(VueRouter);
 import Vuex from 'Vuex';
 Vue.use(Vuex);
 import MuseUI from 'muse-ui';
-import 'muse-ui/dist/muse-ui.css'
+import 'muse-ui/dist/muse-ui.css';
+// import 'muse-ui/dist/theme-carbon.css'
 Vue.use(MuseUI);
 
 var index = require("./component/index.vue");
@@ -19,13 +20,7 @@ var collect = require('./component/kind/collect.vue');
 var me = require('./component/kind/me.vue');
 var login = require('./component/kind/login.vue');
 var register = require('./component/kind/register.vue');
-var daxiongmei = require('./component/kind/children/daxiongmei.vue');
-var xiaoqingxin = require('./component/kind/children/xiaoqingxin.vue');
-var wenyifan = require('./component/kind/children/wenyifan.vue');
-var xingganmei = require('./component/kind/children/xingganmei.vue');
-var dachangtui = require('./component/kind/children/dachangtui.vue');
-var heisiwa = require('./component/kind/children/heisiwa.vue');
-var xiaoqiaotun = require('./component/kind/children/xiaoqiaotun.vue');
+var list = require('./component/kind/children/list.vue');
 
 var router = new VueRouter({
     routes:[{
@@ -35,27 +30,9 @@ var router = new VueRouter({
             path:'pictures',
             component:pictures,
             children:[{
-                path:'daxiongmei',
-                component:daxiongmei
-            },{
-                path:'xiaoqingxin',
-                component:xiaoqingxin
-            },{
-                path:'wenyifan',
-                component:wenyifan
-            },{
-                path:'xingganmei',
-                component:xingganmei
-            },{
-                path:'dachangtui',
-                component:dachangtui
-            },{
-                path:'heisiwa',
-                component:heisiwa
-            },{
-                path:'xiaoqiaotun',
-                component:xiaoqiaotun
-            },]
+                path:'list',
+                component:list
+            }]
         },{
             path:'collect',
             component:collect
@@ -74,21 +51,26 @@ var router = new VueRouter({
         component:detail
     },{
         path:'/',
-        redirect:'/index/pictures/daxiongmei',
+        redirect:'/index/pictures/list',
         component:index
     }]
 });
 var store = new Vuex.Store({
     state:{
-
+        listChange:'34'
     },
     mutations:{
-
+        setArr:function(state,data){
+            state.listChange = data;
+        }
     },
     getters:{
-
+        getArr:function(state){
+            return state.listChange
+        }
     }
-})
+});
+console.log(store.state)
 new Vue({
     el:'#beautyApp',
     template:`
