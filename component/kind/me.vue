@@ -1,7 +1,20 @@
 <template>
     <div class="meWrap">
+        <div id="pop" v-show="isShowPop">
+            <div class="demo-flat-button-container">
+                <mu-flat-button label="选择文件" class="demo-flat-button" icon="touch_app">
+                    <input type="file" class="file-button" @change="imgPreview()" id="headIcon">
+                </mu-flat-button>
+            </div>
+            <div id="previewArea">
+                <img :src="previewUrl" style="width: 100%;height: 100%;">
+            </div>
+            <mu-raised-button class="demo-raised-button" label="确定设置" labelPosition="before" icon="cloud_upload"
+                              secondary @click="setHeadIcon()"/>
+        </div>
+        <div id="popShade" v-show="isShowPop" @click="pop()"></div>
         <div data-v-4a7b7e9c="" class="mu-paper demo-paper mu-paper-circle mu-paper-round mu-paper-2" default="default" style="margin-left: -50px;">
-            <img src="../../img/2.jpg" style="width: 70px;height: 70px;border-radius: 50%">
+            <img :src="setUrl?setUrl:oldUrl" style="width: 70px;height: 70px;border-radius: 50%" @click="pop()">
         </div>
         <div id="personInfo">
             <p>用户名：{{username}}</p>
@@ -29,6 +42,10 @@
                 username:'widthoutgu',
                 password:'',
                 regTime:'2017/05/19',
+                previewUrl:'',
+                setUrl:'',
+                oldUrl:'http://beauty-pic.stor.sinaapp.com/user.png',
+                isShowPop:false,
                 list: [{
                     image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1495770907&di=414f4a0b2145dfc795990730bf2e3adb&imgtype=jpg&er=1&src=http%3A%2F%2Fi2.hoopchina.com.cn%2Fblogfile%2F201306%2F12%2F137100348279236.jpg',
                     title: 'Breakfast',
@@ -67,22 +84,57 @@
             }
         },
         mounted () {
-            var headHight = $('#head').height()+10;
-            console.log(headHight);
+            var headHight = $('#head').height();
+//            console.log(headHight);
             var footHeight = $('.footWrap').innerHeight();
-            console.log(footHeight);
+//            console.log(footHeight);
             var h = window.innerHeight-headHight-footHeight;
-            console.log(h);
+//            console.log(h);
             $('.meWrap').css({"height":h,"top":headHight,"margin-left":-($('.meWrap').width()/2)});
 //            $('.demo-paper').css({"margin-left":-50});
         },
         methods:{
-
+            pop(){
+                this.isShowPop = !this.isShowPop;
+            },
+            imgPreview(){
+                console.log($('#headIcon')[0].files[0]);
+                var imgurl = window.URL.createObjectURL($('#headIcon')[0].files[0]);
+                console.log(imgurl)
+                this.previewUrl = imgurl;
+            },
+            setHeadIcon(){
+                this.setUrl = this.previewUrl;
+                this.pop();
+            }
         }
     }
 </script>
 
 <style scoped>
+    #pop{
+        width: 80%;
+        height: 80%;
+        border-radius: 5px;
+        border:1px solid #ddd;
+        position: absolute;
+        left:10%;
+        top:10%;
+        background: #fff;
+        z-index: 3;
+    }
+    #popShade{
+        width: 200%;
+        height:200%;
+        z-index:2;
+        background: rgba(0,0,0,0.4);
+        position: absolute;
+    }
+    #pop .demo-raised-button{
+        position: absolute;
+        bottom:0;
+        width:100%;
+    }
     .meWrap{
         position: fixed;
         height: 400px;
@@ -130,5 +182,29 @@
         text-align: center;
         position: relative;
         top:20px;
+    }
+    .file-button{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 0;
+    }
+    .demo-flat-button-container{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .demo-flat-button {
+        margin: 12px;
+    }
+    #previewArea{
+        width: 300px;
+        height:300px;
+        border: 1px solid #ddd;
+        position: absolute;
+        left: 50%;
+        margin-left:-150px;
     }
 </style>

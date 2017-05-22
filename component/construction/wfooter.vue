@@ -1,6 +1,6 @@
 <template>
     <mu-paper class="footWrap">
-        <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
+        <mu-bottom-nav :value="bottomNav" shift @change="handleChange" class="footer">
             <mu-bottom-nav-item value="pictures" title="美图" icon="camera_enhance"/>
             <mu-bottom-nav-item value="collect" title="收藏" icon="favorite"/>
             <mu-bottom-nav-item value="me" title="我的" icon="face" />
@@ -21,7 +21,6 @@
         methods: {
             handleChange (val) {
                 this.bottomNav = val
-                console.log(val);
                 switch(val){
                     case 'pictures':
                         window.location.href = '#/index/pictures/list';
@@ -40,7 +39,7 @@
             }
         },
         mounted(){
-            $('.footWrap').height(parseInt(window.innerHeight*0.1))
+//            $('.footWrap').height(parseInt(window.innerHeight*0.1))
         }
     }
 </script>
@@ -49,5 +48,9 @@
         position: fixed;
         bottom:0;
         width: 100%;
+        height:10%;
+    }
+    .footer{
+        height:100%;
     }
 </style>

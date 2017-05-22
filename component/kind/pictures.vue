@@ -41,9 +41,9 @@
             <router-view></router-view>
 
             <div class="lodingWrap">
-                <mu-circular-progress :size="40" class="loading1" color="yellow"/>
-                <mu-circular-progress :size="60" class="loading2" color="orange"/>
-                <mu-circular-progress :size="90" class="loading3" />
+                <mu-circular-progress :size="40"  class="loading1" color="yellow"/>
+                <mu-circular-progress :size="60"  class="loading2" color="orange"/>
+                <mu-circular-progress :size="90"  class="loading3" />
             </div>
             <mu-raised-button label="加载更多" fullWidth @click="loadMore()"/>
 
@@ -71,11 +71,11 @@
         },
         mounted () {
             var headHight = $('#head').height();
-            console.log(headHight);
+//            console.log(headHight);
             var footHeight = $('.footWrap').innerHeight();
-            console.log(footHeight);
+//            console.log(footHeight);
             var h = window.innerHeight-headHight-footHeight;
-            console.log(h);
+//            console.log(h);
             $('.picWrap').css({"height":h,"top":headHight,"margin":"0 auto","padding-top":$('.picTab').innerHeight()});
             $('.picList li').css({"margin":"0 auto"});
             $('.loading1').css({"margin-left":-$('.loading1').innerWidth()/2,"margin-top":-$('.loading1').innerHeight()/2});
@@ -93,7 +93,6 @@
         methods: {
             load (type) {
                 var self = this;
-                console.log(type);
                 $('.lodingWrap').show();
                 $.ajax({
                     url: 'http://route.showapi.com/819-1',

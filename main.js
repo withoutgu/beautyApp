@@ -70,7 +70,6 @@ var store = new Vuex.Store({
         }
     }
 });
-console.log(store.state)
 new Vue({
     el:'#beautyApp',
     template:`

@@ -1,7 +1,22 @@
 <template>
     <div id="head">
-        <img src="../../img/logo.png">
-        {{name}}
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="left"><img src="../../img/logo.png" alt=""></td>
+                <td colspan="2" class="right">{{name}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <!--<p><span><img src="../../img/logo.png"></span>{{name}}</p>-->
     </div>
 </template>
 
@@ -13,10 +28,12 @@
             }
         },
         mounted:function(){
-            var h = parseInt(window.innerHeight*0.08);
-            console.log(h);
-            var head = document.getElementById('head');
-            head.style.cssText = `height:${h}px;line-height:${h}px;`;
+//            var h = parseInt(window.innerHeight*0.08);
+//            console.log(h);
+//            var h = $(window).innerHeight();
+//            console.log(h)
+//            var head = document.getElementById('head');
+//            head.style.cssText = `line-height:${h}px;`;
 //            $("#head").css({'height':h,'line-height':h});
         }
     }
@@ -29,14 +46,41 @@
         background: #7e57c2;
         color: #fff;
         position: fixed;
-        font-size: 1.5rem;
         top:0;
+        height:10%;
     }
     #head img{
         width: 3rem;
         height: 3rem;
-        position: absolute;
-        left:30%;
-        top:20%
     }
+    /*#head p{*/
+        /*position: absolute;*/
+        /*padding: 0;*/
+        /*margin: 0;*/
+        /*top:30%;*/
+        /*width: 100%;*/
+        /*text-align: center;*/
+        /*font-size: 1.5rem;*/
+
+    /*}*/
+    #head table{
+        /*border:1px solid #fff;*/
+        height:100%;
+        border-collapse: collapse;
+        width:100%;
+    }
+    #head table td{
+        /*border:1px solid #fff;*/
+    }
+    .left{
+        text-align: right;
+        width: 40%;
+    }
+    .right{
+        text-align: left;
+        font-size: 2rem;
+        width: 60%;
+        padding-left:5%;
+    }
+
 </style>
