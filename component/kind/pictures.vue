@@ -45,14 +45,18 @@
                 <mu-circular-progress :size="60"  class="loading2" color="orange"/>
                 <mu-circular-progress :size="90"  class="loading3" />
             </div>
+
+            <div class="jump">
+                <mu-text-field hintText="输入页码跳转" v-model="changePageNum"/><br/>
+                <mu-icon-button icon="redo" @click="changePage()"/>
+            </div>
+
             <mu-raised-button label="加载更多" fullWidth @click="loadMore()"/>
 
         </div>
         <div v-if="activeTab === 'tab2'">
-            <h2>Tab Two</h2>
-            <p>
-                这是第二个 tab
-            </p>
+            <p>我的美照</p>
+            <p>技术原因无法上传图片</p>
         </div>
     </div>
 </template>
@@ -66,7 +70,8 @@
                 activeTab: 'tab1',
                 open: false,
                 docked: true,
-                type:'34'
+                type:'39',
+                changePageNum:''
             }
         },
         mounted () {
@@ -140,6 +145,11 @@
                 this.picArr = [];
                 $('.sideBarListWrap').scrollTop(0);
                 this.load(this.type);
+            },
+            changePage(){
+                this.page = this.changePageNum;
+                this.load();
+                this.changePageNum = '';
             }
         }
     }
@@ -241,5 +251,11 @@
         position: relative;
         top:50%;
         left:10%;
+    }
+    .jump{
+        width: 100%;
+        height: 5%;
+        display: flex;
+        justify-content: space-around;
     }
 </style>

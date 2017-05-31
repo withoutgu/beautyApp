@@ -1,6 +1,6 @@
 <?php
     //引入连接数据可的connect.php
-    include "connect.php";
+    include "http://1.beauty.applinzi.com/api/connect.php";
     //获取用户名
     $username = isset($_POST['username'])?$_POST['username']:'';
 

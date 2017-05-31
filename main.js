@@ -21,6 +21,7 @@ var me = require('./component/kind/me.vue');
 var login = require('./component/kind/login.vue');
 var register = require('./component/kind/register.vue');
 var list = require('./component/kind/children/list.vue');
+var blank = require('./component/kind/blank.vue');
 
 var router = new VueRouter({
     routes:[{
@@ -36,6 +37,9 @@ var router = new VueRouter({
         },{
             path:'collect',
             component:collect
+        },{
+            path:'blank',
+            component:blank
         },{
             path:'me',
             component:me,
@@ -57,16 +61,23 @@ var router = new VueRouter({
 });
 var store = new Vuex.Store({
     state:{
-        listChange:'34'
+        listChange:'34',
+        logInfo:{}
     },
     mutations:{
         setArr:function(state,data){
             state.listChange = data;
+        },
+        setLogInfo:function(state,data){
+            state.logInfo = data;
         }
     },
     getters:{
         getArr:function(state){
-            return state.listChange
+            return state.listChange;
+        },
+        getLogInfo:function(state){
+            return state.logInfo;
         }
     }
 });

@@ -1,5 +1,10 @@
 <template>
     <div class="meWrap">
+        <div class="menu">
+            <mu-icon-menu icon="more_vert" :anchorOrigin="rightTop" :targetOrigin="rightTop">
+                <mu-menu-item title="退出登录" @click="logout()"/>
+            </mu-icon-menu>
+        </div>
         <div id="pop" v-show="isShowPop">
             <div class="demo-flat-button-container">
                 <mu-flat-button label="选择文件" class="demo-flat-button" icon="touch_app">
@@ -13,7 +18,8 @@
                               secondary @click="setHeadIcon()"/>
         </div>
         <div id="popShade" v-show="isShowPop" @click="pop()"></div>
-        <div data-v-4a7b7e9c="" class="mu-paper demo-paper mu-paper-circle mu-paper-round mu-paper-2" default="default" style="margin-left: -50px;">
+        <div data-v-4a7b7e9c="" class="mu-paper demo-paper mu-paper-circle mu-paper-round mu-paper-2"
+             default="default" style="margin-left: -50px;border-radius: 50%">
             <img :src="setUrl?setUrl:oldUrl" style="width: 70px;height: 70px;border-radius: 50%" @click="pop()">
         </div>
         <div id="personInfo">
@@ -39,9 +45,11 @@
     export default {
         data () {
             return {
-                username:'widthoutgu',
+                userInfo:{},
+                rightTop: {horizontal: 'right', vertical: 'top'},
+                username:'',
                 password:'',
-                regTime:'2017/05/19',
+                regTime:'',
                 previewUrl:'',
                 setUrl:'',
                 oldUrl:'http://beauty-pic.stor.sinaapp.com/user.png',
@@ -92,6 +100,26 @@
 //            console.log(h);
             $('.meWrap').css({"height":h,"top":headHight,"margin-left":-($('.meWrap').width()/2)});
 //            $('.demo-paper').css({"margin-left":-50});
+
+            var cookies = document.cookie.split('; ');
+            var selft = this;
+            if(cookies.length!=0) {
+//                console.log(cookies);
+                for (var i = 0; i < cookies.length; i++) {
+                    var arr = cookies[i].split('=');
+                    if (arr[0] === 'userInfo') {
+                        selft.userInfo = JSON.parse(arr[1]);
+                        selft.username = selft.userInfo.username;
+                        selft.setUrl = selft.userInfo.headIconUrl;
+                        var dateS = Number(JSON.parse(selft.userInfo.createTime));
+                        console.log(dateS);
+                        var date = new Date(dateS).toLocaleDateString();
+                        console.log(date);
+                        selft.regTime = date;
+//                        console.log(self.regTime);
+                    }
+                }
+            }
         },
         methods:{
             pop(){
@@ -100,18 +128,31 @@
             imgPreview(){
                 console.log($('#headIcon')[0].files[0]);
                 var imgurl = window.URL.createObjectURL($('#headIcon')[0].files[0]);
-                console.log(imgurl)
+//                console.log(imgurl);
                 this.previewUrl = imgurl;
             },
             setHeadIcon(){
                 this.setUrl = this.previewUrl;
                 this.pop();
+            },
+            logout(){
+                var now = new Date();
+                now.setDate(now.getDate()-7);
+                document.cookie = 'userInfo=' + JSON.stringify(this.userInfo) + ';expires='+now+';path=/';
+                window.location.href = '#/index/login';
+                window.location.reload();
             }
         }
     }
 </script>
 
 <style scoped>
+    .menu{
+        position: absolute;
+        top:0%;
+        right:0%;
+        z-index: 2;
+    }
     #pop{
         width: 80%;
         height: 80%;
