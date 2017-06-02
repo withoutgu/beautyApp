@@ -104,11 +104,6 @@
                 console.log(this.setUrl)
                 //隐藏弹窗
                 this.pop();
-                $("#headIcon").uploadify({
-                    'swf': 'http://1.beauty.applinzi.com/uploadify.swf',
-                    'uploader': 'http://1.beauty.applinzi.com/uploadify.php',
-                });
-
             },
             //验证用户名是否合法
             checkUsername() {
