@@ -1,9 +1,9 @@
 <template>
     <div>
         <ul class="picList">
-            <li v-for="img in picArr" @click="toDetail(img.title,img.thumb)">
+            <li v-for="img in picArr" >
                 <p>{{img.title}}</p>
-                <img :src="img.thumb" alt="">
+                <img :src="img.thumb" alt="" @click="toDetail(img.title,img.thumb)">
                 <div id="shade">
                     <p>description</p>
                     <mu-float-button icon="star"  mini class="demo-float-button"

@@ -26552,16 +26552,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('ul', {
     staticClass: "picList"
   }, _vm._l((_vm.picArr), function(img) {
-    return _c('li', {
+    return _c('li', [_c('p', [_vm._v(_vm._s(img.title))]), _vm._v(" "), _c('img', {
+      attrs: {
+        "src": img.thumb,
+        "alt": ""
+      },
       on: {
         "click": function($event) {
           _vm.toDetail(img.title, img.thumb)
         }
-      }
-    }, [_c('p', [_vm._v(_vm._s(img.title))]), _vm._v(" "), _c('img', {
-      attrs: {
-        "src": img.thumb,
-        "alt": ""
       }
     }), _vm._v(" "), _c('div', {
       attrs: {
