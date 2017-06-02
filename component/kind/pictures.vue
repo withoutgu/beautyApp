@@ -56,7 +56,7 @@
         </div>
         <div v-if="activeTab === 'tab2'">
             <p>我的美照</p>
-            <p>技术原因无法上传图片</p>
+            <p></p>
         </div>
     </div>
 </template>
